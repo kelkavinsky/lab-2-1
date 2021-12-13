@@ -91,7 +91,7 @@ void editRecord(Train *tr) {
     cout << "Количество [" << tr->getCount() << "]: "; cout.flush();
     getline(cin, sCount);
     if (sCount == "") count=tr->getCount();
-    else count=stoi(sCount);
+    else count=stoi(sCount); // isNumber?
     //
     *tr=Train(name, route, count);
 }
