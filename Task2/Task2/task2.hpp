@@ -22,9 +22,6 @@ private:
     string route;
     int count;
 public:
-    Train();
-    ~Train();
-    Train(string n, string r, int c);
     string getName();
     string setName(string n);
     string getRoute();

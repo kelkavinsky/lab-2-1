@@ -8,18 +8,6 @@
 
 #include "task2.hpp"
 
-Train::Train() {
-    this->name = "";
-    this->route = "";
-    this->count = 0;
-}
-
-Train::Train(string n, string r, int c) {
-    this->name = n;
-    this->route = r;
-    this->count = c;
-}
-
 string Train::getName() {
     return this->name;
 }
@@ -51,10 +39,12 @@ int Train::setCount(int c) {
 }
 
 int main(void) {
-    Train *t = new Train("qaz","wsx",5);
+    Train *t = new Train();
+    t->setName("qaz");
+    t->setRoute("wsx");
+    t->setCount(5);
     cout << t->getName() << endl;
     cout << t->getRoute() << endl;
     cout << t->getCount() << endl;
-    //
 }
 
