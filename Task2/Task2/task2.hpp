@@ -10,9 +10,13 @@
 #ifndef task2_hpp
 #define task2_hpp
 
-#include <stdio.h>
+#include <fstream>
+//#include <stdio.h>
 #include <string>
 #include <iostream>
+#include <sstream>
+
+#define TRAINS  (2)
 
 using namespace std;
 
@@ -22,12 +26,16 @@ private:
     string route;
     int count;
 public:
+    Train();
+    Train(string n, string r, int c);
     string getName();
     string setName(string n);
     string getRoute();
     string setRoute(string r);
     int getCount();
     int setCount(int c);
+    //
+    void showRecord();
 };
 
 #endif /* task2_hpp */
