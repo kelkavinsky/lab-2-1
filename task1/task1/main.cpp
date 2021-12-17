@@ -4,7 +4,7 @@
 #include <sstream>
 
 using namespace std;
-
+///
 const int file_size = 4;
 const string file_name = "/Users/nikita/lab/task1.txt";
 
