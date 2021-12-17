@@ -11,9 +11,9 @@ const string file_name = "/Users/nikita/lab/task1.txt";
 
 typedef struct sTask1 {
     string name;
-    string developer;
+    string route;
     string version;
-    int year;
+    int count;
 } Task1;
 
 Task1* pData;
@@ -22,17 +22,17 @@ Task1 readLine(string line) {
     istringstream ss(line);
     Task1 rec;
     ss >> rec.name;
-    ss >> rec.developer;
-    ss >> rec.version;
-    ss >> rec.year;
+    ss >> rec.route;
+   
+    ss >> rec.count;
     return rec;
 }
 
 void showRecord(int i) {
     cout << "   Название: " << pData[i].name << endl;
-    cout << "Разработчик: " << pData[i].developer << endl;
-    cout << "     Версия: " << pData[i].version << endl;
-    cout << "        Год: " << pData[i].year << endl;
+    cout << "Разработчик: " << pData[i].route << endl;
+    
+    cout << "        Год: " << pData[i].count << endl;
     cout << endl;
 }
 
@@ -62,9 +62,9 @@ void writeData(void) {
     ofstream file(file_name);
     for (int i=0; i < file_size; i++) {
         file << pData[i].name << " ";
-        file << pData[i].developer << " ";
-        file << pData[i].version << " ";
-        file << pData[i].year << endl;
+        file << pData[i].route << " ";
+        
+        file << pData[i].count << endl;
     }
     file.close();
 }
@@ -80,19 +80,17 @@ void editRecord(int i) {
     getline(cin, rec.name);
     if (rec.name == "") rec.name=pData[i].name;
     //
-    cout << "Разработчик [" << pData[i].developer << "]: "; cout.flush();
-    getline(cin, rec.developer);
-    if (rec.developer == "") rec.developer=pData[i].developer;
+    cout << "Разработчик [" << pData[i].route << "]: "; cout.flush();
+    getline(cin, rec.route);
+    if (rec.route == "") rec.route=pData[i].route;
     //
-    cout << "Версия [" << pData[i].version << "]: "; cout.flush();
-    getline(cin, rec.version);
-    if (rec.version == "") rec.version=pData[i].version;
+  
     //
-    string year;
-    cout << "Год [" << pData[i].year << "]: "; cout.flush();
-    getline(cin, year);
-    if (year == "") rec.year=pData[i].year;
-    else rec.year=stoi(year);
+    string count;
+    cout << "Год [" << pData[i].count << "]: "; cout.flush();
+    getline(cin, count);
+    if (count == "") rec.count=pData[i].count;
+    else rec.count=stoi(count);
     
     pData[i]=rec;
 }
@@ -122,18 +120,13 @@ void editData(void) {
 }
 
 void calcData(void) {
-    cout << "Вычисляем самую  старую программу..." << endl;
-    int index=0;
-    int year=0;
-    for (int i=0; i < file_size; i++) {
-        if (pData[i].year < year ) {
-            year = pData[i].year;
-            index = i;
+    cout << "Вычисляем общее количество путевок..." << endl;
+    int summa = 0;
+    for (int i=0; i < 4; i++) { summa+=pData[i].count; }
+    cout << "Количество: " << summa << endl;
+    
         }
-    }
-    cout << "Самая свежая программа:" << endl;
-    showRecord(index);
-}
+
 
 
 
