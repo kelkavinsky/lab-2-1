@@ -23,6 +23,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1130C014277527460059FD8F /* struct1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = struct1.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		118598C22767D3B20062D56A /* struct-1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "struct-1"; sourceTree = BUILT_PRODUCTS_DIR; };
 		118598C52767D3B20062D56A /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				118598C52767D3B20062D56A /* main.cpp */,
+				1130C014277527460059FD8F /* struct1.h */,
 			);
 			path = "struct-1";
 			sourceTree = "<group>";
