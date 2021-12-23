@@ -9,8 +9,12 @@
 #ifndef struct1_h
 #define struct1_h
 
+#define PUKS (2)
+
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -19,35 +23,49 @@ private:
     int price;
     string name;
 public:
+    PUK() {};
+    PUK(string n, int p) {
+        this->setName(n);
+        this->setPrice(p);
+    };
     // Наследуемые методы.
     int getPrice();
     int setPrice(int p);
     string getName();
     string setName(string n);
     // Переопределяемый метод.
-    virtual void showRecord(bool num=false) = 0;
+    virtual void showRecord() = 0;
+    virtual void editRecord() = 0;
 };
 
 class KB: public PUK {
 private:
     string connector;
 public:
+    KB() {};
+    KB(string n, int p, string c): PUK(n, p) {
+        this->setConnector(c);
+    };
     // Собственные методы.
     string getConnector();
     string setConnector(string c);
     // Переопределяемый метод.
-    virtual void showRecord(bool num=false);
+    virtual void showRecord();
 };
 
 class SCANNER: public PUK {
 private:
     int resolution;
 public:
+    SCANNER() {};
+    SCANNER(string n, int p, int r): PUK(n, p) {
+        this->setResolution(r);
+    };
     // Собственные методы.
     int getResolution();
     int setResolution(int r);
     // Переопределяемый метод.
-    virtual void showRecord(bool num=false);
+    virtual void showRecord();
 };
 
 #endif /* struct1_h */
