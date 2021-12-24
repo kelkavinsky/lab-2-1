@@ -131,7 +131,6 @@ int main(void) {
         Train("zopa", "xxxxx", 64),
         Train("zzzzzopa", "xyyyxxxx", 22)
     };
-    trains[0].setName("qaz");
     showData(trains);
     bool keepMenu=true;
     while (keepMenu) {
