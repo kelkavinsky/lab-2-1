@@ -39,14 +39,13 @@ string KB::setConnector(string c) {
 }
 
 void KB::showRecord() {
-    cout << "  Название: " << this->name << endl;
-    cout << "   Маршрут: " << this->route << endl;
-    cout << "Количество: " << this->count << endl;
+    cout << "  Название: " << this->getName() << endl;
+    cout << "      Цена: " << this->getPrice() << endl;
+    cout << "    Разьем: " << this->getConnector() << endl;
     cout << endl;
-    //cout << this->getName() << " " << this->getPrice() << " " << this->getConnector() << endl;
 }
 
-int  SCANNER::getResolution() {
+int SCANNER::getResolution() {
     return this -> resolution;
 }
 
@@ -55,20 +54,20 @@ int SCANNER::setResolution (int r){
     this -> resolution = r;
     return t;
 }
+
 void SCANNER::showRecord() {
     cout << "  Название: " << this->getName() << endl;
-    cout << "   Маршрут: " << this->route << endl;
-    cout << "Количество: " << this->count << endl;
+    cout << "      Цена: " << this->getPrice() << endl;
+    cout << "Разрешение: " << this->getResolution() << endl;
     cout << endl;
-    //cout << this ->getName() << " " << this->getPrice() << " " << this -> getResolution() << endl;
  }
 
 
-void showData(PUK *tr, bool showNumbers=false) {
+void showData(PUK *tr[], bool showNumbers=false) {
     cout << endl << "============" << endl;
     for (int i=0; i<PUKS; i++) {
         if (showNumbers) cout << i+1 << ") Номер записи." << endl;
-        tr[i].showRecord();
+        tr[i]->showRecord();
     }
 }
 
@@ -85,34 +84,52 @@ char showMenu(void) {
     return choice;
 }
 
-void KB::editRecord() {
-    // tr -> this
-    string name, route, sCount;
-    int count;
+void PUK::editRecord() {
+    string name, sPrice;
+    int price;
     cin.clear(); cin.ignore(256, '\n');
     cout << "Правим запись" << endl;
     //
-    cout << "Название [" << tr->getName() << "]: "; cout.flush();
+    cout << "Название [" << this->getName() << "]: "; cout.flush();
     getline(cin, name);
-    if (name == "") name=tr->getName();
+    if (name == "") name=this->getName();
     //
-    cout << "Маршрут [" << tr->getRoute() << "]: "; cout.flush();
-    getline(cin, route);
-    if (route == "") route=tr->getRoute();
+    cout << "Цена [" << this->getPrice() << "]: "; cout.flush();
+    getline(cin, sPrice);
+    if (sPrice == "") price=this->getPrice();
+    else price=stoi(sPrice); // isNumber?
     //
-    cout << "Количество [" << tr->getCount() << "]: "; cout.flush();
-    getline(cin, sCount);
-    if (sCount == "") count=tr->getCount();
-    else count=stoi(sCount); // isNumber?
-    //
-    *tr=Train(name, route, count);
+    this->setName(name);
+    this->setPrice(price);
+}
+
+void KB::editRecord() {
+    this->PUK::editRecord();
+    string connector;
+    //cin.clear(); cin.ignore(256, '\n');
+    cout << "Разъём [" << this->getConnector() << "]: "; cout.flush();
+    getline(cin, connector);
+    if (connector == "") connector=this->getConnector();
+    this->setConnector(connector);
+}
+
+void SCANNER::editRecord() {
+    this->PUK::editRecord();
+    string sResolution;
+    int resolution;
+    //cin.clear(); cin.ignore(256, '\n');
+    cout << "Разрешение [" << this->getResolution() << "]: "; cout.flush();
+    getline(cin, sResolution);
+    if (sResolution == "") resolution=this->getResolution();
+    else resolution=stoi(sResolution);
+    this->setResolution(resolution);
 }
 
 bool isNumber(const string &str) {
     return !str.empty() && str.find_first_not_of("0123456789") == string::npos;
 }
 
-void editData(PUK *tr) {
+void editData(PUK *tr[]) {
     cout << "Редактируем..." << endl;
     showData(tr, true);
     cout << "1-" << PUKS << ") Номер записи." << endl;
@@ -123,7 +140,7 @@ void editData(PUK *tr) {
     cin >> choice;
     if (isNumber(choice)) {
         int inum=stoi(choice)-1;
-        if (0 <= inum && inum < PUKS) editRecord(tr+inum);
+        if (0 <= inum && inum < PUKS) tr[inum]->editRecord();
         else cout << "Нет такой записи..." << endl;
     } else {
         if (choice[0] == 'q') return;
@@ -131,20 +148,22 @@ void editData(PUK *tr) {
     }
 }
 
-void calcData(PUK *tr) {
-    cout << "Вычисляем количаство путёвок..." << endl;
+void calcData(PUK *tr[]) {
+    cout << "Вычисляем среднюю цену..." << endl;
     int summaCount=0;
-    for (int i=0; i < PUKS; i++) { summaCount+=tr[i].getPrice(); }
-    cout << "Количество: " << summaCount/PUKS << endl;
+    for (int i=0; i < PUKS; i++) { summaCount+=tr[i]->getPrice(); }
+    cout << "Средняя цена: " << summaCount/PUKS << endl;
 }
 
 int main(void) {
-    PUK puks[PUKS]={
-        KB("zopa", 64, "USB"),
-        SCANNER("poppa", 100, 22)
-    };
-    trains[0].setName("qaz");
-    showData(trains);
+//    PUK *puks[PUKS]={
+//        KB("zopa", 64, "USB"),
+//        SCANNER("poppa", 100, 22)
+//    };
+    PUK *puks[PUKS];
+    puks[0]=new KB("zopa", 64, "USB");
+    puks[1]=new SCANNER("poppa", 100, 22);
+    showData(puks);
     bool keepMenu=true;
     while (keepMenu) {
         switch (showMenu()) {
@@ -153,13 +172,13 @@ int main(void) {
                 cout << "Всего хорошего." << endl;
                 break;
             case 's':
-                showData(trains);
+                showData(puks);
                 break;
             case 'e':
-                editData(trains);
+                editData(puks);
                 break;
             case 'c':
-                calcData(trains);
+                calcData(puks);
                 break;
             default:
                 cout << "Не понял..." << endl;

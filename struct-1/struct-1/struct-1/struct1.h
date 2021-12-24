@@ -34,8 +34,8 @@ public:
     string getName();
     string setName(string n);
     // Переопределяемый метод.
-    virtual void showRecord() = 0;
-    virtual void editRecord() = 0;
+    virtual void showRecord(){};
+    virtual void editRecord();
 };
 
 class KB: public PUK {
@@ -51,6 +51,7 @@ public:
     string setConnector(string c);
     // Переопределяемый метод.
     virtual void showRecord();
+    virtual void editRecord();
 };
 
 class SCANNER: public PUK {
@@ -66,6 +67,7 @@ public:
     int setResolution(int r);
     // Переопределяемый метод.
     virtual void showRecord();
+    virtual void editRecord();
 };
 
 #endif /* struct1_h */
