@@ -156,13 +156,10 @@ void calcData(PUK *tr[]) {
 }
 
 int main(void) {
-//    PUK *puks[PUKS]={
-//        KB("zopa", 64, "USB"),
-//        SCANNER("poppa", 100, 22)
-//    };
-    PUK *puks[PUKS];
-    puks[0]=new KB("zopa", 64, "USB");
-    puks[1]=new SCANNER("poppa", 100, 22);
+    PUK *puks[PUKS]={
+        new KB("zopa", 64, "USB"),
+        new SCANNER("poppa", 100, 22)
+    };
     showData(puks);
     bool keepMenu=true;
     while (keepMenu) {
